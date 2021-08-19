@@ -17,6 +17,8 @@ class Main extends React.Component {
           <Location 
             location={location}
             filterUnicorns={this.filterUnicorns}
+            unicornsArray={this.props.unicornsArray}
+            displayUnicorns={this.props.displayUnicorns}
           />
         ))}
         ;
