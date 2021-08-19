@@ -3,6 +3,20 @@ import Card from "react-bootstrap/Card";
 import Unicorn from "./Unicorn";
 
 class Location extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     renderSwitch: false,
+  //   };
+  // }
+
+  renderSwitch = () => {
+    this.props.unicornArray.forEach(unicorn =>{
+      if (unicorn.location === this.props.location.name) {
+        return true;
+      }
+    })
+  }
 
   render() {
     return (
@@ -10,8 +24,15 @@ class Location extends Component {
             <Card.Body>
               <Card.Title>{this.props.location.name}</Card.Title>
               <Card.Text>
-                <Unicorn unicornsToBeMade={this.props.filterUnicorns(this.props.location.name)[0].name}/>
-                {/* {this.props.filterUnicorns(this.props.location.name)[0].name} */}
+                {this.renderSwitch ? this.props.unicornsArray.map((unicorn, idx) => (
+                  unicorn.location === this.props.location.name ? 
+                  <Unicorn 
+                    unicornsToBeMade={unicorn}
+                    unicornsArray={this.props.unicornsArray}
+                    displayUnicorns={this.props.displayUnicorns}
+                    key={unicorn}
+                    index={idx}
+                  /> : " " )) : " "}
               </Card.Text>
             </Card.Body>
           </Card>

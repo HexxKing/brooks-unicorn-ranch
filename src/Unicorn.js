@@ -6,31 +6,48 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 class Unicorn extends Component {
 
-  unicornToBeRendered = () => {
-    
+  moveLocations = (e) => {
+    let updatedUnicorn = this.props.unicornsToBeMade;
+    let allUnicorns = this.props.unicornsArray;
+
+    allUnicorns.forEach(unicorn => {
+      if (unicorn.name === updatedUnicorn.name) {
+        unicorn.location = e;
+      }
+    });
+
+    console.log(this.props.unicornsArray);
+    this.props.displayUnicorns(allUnicorns);
   };
 
   render() {
     return (
-      <Navbar variant="dark" bg="dark" expand="lg">
-        <Container fluid>
-          <Navbar.Brand href="#home">{this.props.unicornsToBeMade}</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-dark-example" />
-          <Navbar.Collapse id="navbar-dark-example">
-            <Nav>
-              <NavDropdown
-                id="nav-dropdown-dark"
-                title="Where would you like to take your unicorn?"
-                menuVariant="dark"
-              >
-                <NavDropdown.Item href="#action/3.1">Barn</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Pasture</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Trails</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <>
+        {this.props.unicornsToBeMade ? (
+          <Navbar variant="dark" bg="dark" expand="lg">
+            <Container fluid>
+              <Navbar.Brand>{this.props.unicornsToBeMade.name}</Navbar.Brand>
+              <Navbar.Toggle aria-controls="navbar-dark-example" />
+              <Navbar.Collapse>
+                <Nav>
+                  <NavDropdown
+                    id="nav-dropdown-dark"
+                    title="Where would you like to take your unicorn?"
+                    menuVariant="dark"
+                    onSelect={this.moveLocations}
+                  >
+                    <NavDropdown.Item eventKey="Barn">Barn</NavDropdown.Item>
+                    <NavDropdown.Item eventKey="Pasture">Pasture</NavDropdown.Item>
+                    <NavDropdown.Item eventKey="Trails">Trails</NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        ) : (
+          " "
+        )}
+      </>
     );
   }
 }
